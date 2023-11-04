@@ -1,5 +1,5 @@
 <template>
-    <div class="position-relative d-block my-3">
+    <div class="position-relative my-3">
         <h1 class="d-inline">Categories</h1>
         <button class="btn btn-primary float-end">Add New</button>
     </div>
