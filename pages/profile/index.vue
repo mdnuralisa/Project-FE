@@ -6,7 +6,7 @@
                 <h1 class="d-inline">Profile</h1>
             </div>
             <div class="mb-3 text-center">
-                <label for="exampleInputEmail1" class="form-label">Your Email address</label>
+                <label for="exampleInputEmail1" class="form-label">Your registered email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
