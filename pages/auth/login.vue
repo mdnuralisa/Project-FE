@@ -24,7 +24,7 @@ definePageMeta({
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
             <div class="mb-3 text-center">
-                Don't have an account? Register
+                Don't have an account? <a class="nav-link text-primary" href="/auth/register">Register</a>
             </div>
         </form>
     </div>
