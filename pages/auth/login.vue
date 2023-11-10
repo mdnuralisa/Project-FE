@@ -21,6 +21,7 @@ const  login = async  () => {
                 console.log(response._data.data.token);
                 // Process the response data
                 localStorage.setItem('token', response._data.data.token);
+                // window.$cookies.set('token', response._data.data.token);
                  navigateTo('/home')
             },
             onResponseError({ request, response, options }) {

@@ -22,8 +22,10 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "bootstrap-vue": "^2.23.1",
+    "cookie-universal-nuxt": "^2.2.2",
     "flowbite": "^2.0.0",
     "flowbite-vue": "^0.1.0",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21"
   }
 }
