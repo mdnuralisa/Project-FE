@@ -10,6 +10,7 @@ const form = ref({
     password: ""
 })
 
+
 const  login = async  () => {
     
     return await callWithNuxt(
@@ -20,9 +21,20 @@ const  login = async  () => {
             onResponse({ request, response, options }) {
                 console.log(response._data.data.token);
                 // Process the response data
+                
                 localStorage.setItem('token', response._data.data.token);
+
+                const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+                console.log(token);
+                if (response.status === 401) {
+                    alert("Invalide Credential!");
+                    
+                } else {
+                    navigateTo('/home');
+                }
+
                 // window.$cookies.set('token', response._data.data.token);
-                 navigateTo('/home')
+                 
             },
             onResponseError({ request, response, options }) {
                 // console.log(response);
