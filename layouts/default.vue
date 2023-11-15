@@ -1,29 +1,29 @@
 <script setup lang="ts">
 
-const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+// const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
-let categories = ref([])
+// let categories = ref([])
 
-const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/listing', {
-        method: "get",
+// const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/listing', {
+//         method: "get",
         
-        headers: {
+//         headers: {
             
-            Authorization: `Bearer ${token}`,
-        },
-        onResponse({ request, response, options }) {
-            console.log(response);
-            // Process the response data
+//             Authorization: `Bearer ${token}`,
+//         },
+//         onResponse({ request, response, options }) {
+//             console.log(response);
+//             // Process the response data
 
-            categories = response._data.data
-            // window.$cookies.set('token', response._data.data.token);
+//             categories = response._data.data
+//             // window.$cookies.set('token', response._data.data.token);
                 
-        },
-        onResponseError({ request, response, options }) {
-                console.log(response);
-            // Handle the response errors
-        }
-    });
+//         },
+//         onResponseError({ request, response, options }) {
+//                 console.log(response);
+//             // Handle the response errors
+//         }
+//     });
   
 // const router = useRouter()
 
@@ -60,7 +60,7 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
         <a href="/home" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
       </li>
       <li>
-        <a href="/categories" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Inventories</a>
+        <a href="#" @click.stop.prevent="navigateTo('/categories')" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Inventories</a>
       </li>
       <li>
         <a href="/profile" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Profile</a>
