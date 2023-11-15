@@ -1,4 +1,30 @@
 <script setup lang="ts">
+
+const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
+let categories = ref([])
+
+const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/listing', {
+        method: "get",
+        
+        headers: {
+            
+            Authorization: `Bearer ${token}`,
+        },
+        onResponse({ request, response, options }) {
+            console.log(response);
+            // Process the response data
+
+            categories = response._data.data
+            // window.$cookies.set('token', response._data.data.token);
+                
+        },
+        onResponseError({ request, response, options }) {
+                console.log(response);
+            // Handle the response errors
+        }
+    });
+  
 // const router = useRouter()
 
 
