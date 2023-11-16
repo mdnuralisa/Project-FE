@@ -1,11 +1,19 @@
 <script setup lang="ts">
 
+import { nextTick } from 'vue'
 import { callWithNuxt } from 'nuxt/app';
+
+const route = useRoute()
+
+let id = route.params.id
 
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 let categories = ref([])
 
+const updateData = () => {
+    
+  nextTick(async () => {
 const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/listing', {
         method: "get",
         
@@ -17,7 +25,7 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
             console.log(response);
             // Process the response data
 
-            categories = response._data.data
+            categories.value = response._data.data
             // window.$cookies.set('token', response._data.data.token);
                 
         },
@@ -26,7 +34,9 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
             // Handle the response errors
         }
     });
+  })
 
+}
     const  deleteCategory = async  (index: any, id: string) => {
     
     return await callWithNuxt(
@@ -37,9 +47,10 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
               Authorization: `Bearer ${token}`,
             },
             onResponse({ request, response, options }) {
-                categories.splice(index, 1)
-                alert('woi')
+                // categories.splice(index, 1)
+                // alert('woi')
                 console.log(response);
+                updateData()
                 // Process the response data
                 // navigateTo('/window');
                 // window.location.reload();
@@ -56,6 +67,9 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
     
 }
   
+onMounted(() => {
+  updateData()
+});
 
 
 </script>
@@ -76,7 +90,7 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
                 </div> 
                 <div class="grid gap-8 lg:grid-cols-4 flex flex-row justify-items-center">
                     <div v-for="(category, index) in categories" class="flex flex-col items-center justify-center p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <h2 class="text-center mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="/items" >{{ category.name }}</a></h2>
+                        <h2 class="text-center mb-8 text-5xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="/items" >{{ category.name }}</a></h2>
                         <div class="mt-2 gap-4 flex justify-between items-center">
                     <div class="flex items-center space-x-3 sm:space-x-4">
                         <button type="button" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
