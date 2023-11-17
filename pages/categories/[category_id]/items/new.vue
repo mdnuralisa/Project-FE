@@ -7,7 +7,9 @@ const route = useRoute()
 let id = route.params.category_id
 
 const form = ref({
-    name: ""
+    name: "",
+    quantity: 0,
+    unit: "",
 })
 
 
@@ -59,15 +61,15 @@ const  add = async  () => {
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
             <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-            <input type="number" id="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+            <input v-model="form.quantity" type="number" id="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
         </div>
         <div>
             <label for="unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit</label>
-            <select id="unit" class="form-select mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" aria-label="Large select example">
+            <select v-model="form.unit" id="unit" class="form-select mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" aria-label="Large select example">
                     <option selected>Open this select unit</option>
-                    <option value="1">pcs</option>
-                    <option value="2">kg</option>
-                    <option value="3">L</option>
+                    <option value="pcs">pcs</option>
+                    <option value="kg">kg</option>
+                    <option value="L">L</option>
             </select>
         </div>
     </div>
