@@ -2,7 +2,9 @@
 import { callWithNuxt } from 'nuxt/app';
 const route = useRoute()
 
-let id = route.params.id
+let id = route.params.category_id
+
+let itemId = route.params.id
 
 let form = ref({
     name: ""
@@ -11,7 +13,7 @@ let form = ref({
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 
-const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/show/'+id, {
+const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/'+id+'/items/show/'+itemId, {
         method: "get",
         
         headers: {
@@ -36,7 +38,7 @@ const  update = async  () => {
     
     return await callWithNuxt(
         useNuxtApp(),
-        async ()=> await useFetch('http://localhost:8080/categories/update/'+id,{
+        async ()=> await useFetch('http://localhost:8080/categories/'+id+'/items/update/'+itemId,{
             method: "put",
             body: form,
             headers: {
@@ -45,7 +47,7 @@ const  update = async  () => {
             onResponse({ request, response, options }) {
                 console.log(response);
                 // Process the response data
-                navigateTo('/categories');
+                navigateTo('/categories/'+id+'/items');
 
                 // window.$cookies.set('token', response._data.data.token);
                  
@@ -63,23 +65,41 @@ const  update = async  () => {
 </script>
 
 <template>
-<section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex justify-center">
-    <div class=" w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:border-gray-700">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      <div class="mx-auto max-w-screen-sm text-center ">
-          <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Categories</h2>
-          <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Rename categories based on your home-space.</p>
+    <section class="bg-gray-50 dark:bg-gray-900">
+      <div class="flex justify-center">
+        <div class="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 md:p-8 dark:border-gray-700">
+          <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div class="mx-auto max-w-screen-sm text-center ">
+              <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">New Item</h2>
+              <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Add new item based on your dedicated categories.</p>
+              </div>
           </div>
-      </div>
-
     
-      <div>
-    <label for="default-input" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Rename categories</label>
-    <input type="text" v-model="form.name" id="default-input" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <button type="button" @click.stop.prevent="update" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Submit</button>
-</div>
-</div>
-</div>
-</section>
-</template>
+<form>        
+    <div class="mb-6">
+        <label for="default-input" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Add new item</label>
+        <input v-model="form.name"  type="text" id="default-input" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+            <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+            <input type="number" id="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+        </div>
+        <div>
+            <label for="unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit</label>
+            <select id="unit" class="form-select mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" aria-label="Large select example">
+                    <option selected>Open this select unit</option>
+                    <option value="1">pcs</option>
+                    <option value="2">kg</option>
+                    <option value="3">L</option>
+            </select>
+        </div>
+    </div>
+        <button @click.stop.prevent="update" type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Submit</button>
+    
+</form>
+    </div>
+    </div>
+    </section>
+    </template>
+    

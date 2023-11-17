@@ -1,3 +1,45 @@
+<script setup lang="ts">
+
+import { callWithNuxt } from 'nuxt/app';
+
+const route = useRoute()
+
+let id = route.params.category_id
+
+const form = ref({
+    name: ""
+})
+
+
+const  add = async  () => {
+    
+    return await callWithNuxt(
+        useNuxtApp(),
+        async ()=> await useFetch('http://localhost:8080/categories/'+id+'/items/store',{
+            method: "post",
+            body: form,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            onResponse({ request, response, options }) {
+                console.log(response);
+                // Process the response data
+                navigateTo('/categories/'+id+'/items');
+
+                // window.$cookies.set('token', response._data.data.token);
+                 
+            },
+            onResponseError({ request, response, options }) {
+                 console.log(response);
+                // Handle the response errors
+            }
+        })
+    );
+    
+}
+
+</script>
+
 <template>
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="flex justify-center">
@@ -12,7 +54,7 @@
 <form>        
     <div class="mb-6">
         <label for="default-input" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Add new item</label>
-        <input type="text" id="default-input" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input v-model="form.name" type="text" id="default-input" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
@@ -29,7 +71,7 @@
             </select>
         </div>
     </div>
-        <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Submit</button>
+        <button @click.stop.prevent="add" type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Submit</button>
     
 </form>
     </div>
