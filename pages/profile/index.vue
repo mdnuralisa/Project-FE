@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { nextTick } from 'vue'
-
+import { callWithNuxt } from 'nuxt/app';
 
 let form = ref({
-    email: ""
+    email: "",
+    newPassword: ""
 })
 
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -12,7 +13,7 @@ const updateData = () => {
     
     nextTick(async () => {
         
-        const { data, pending, error, refresh } = await useFetch('http://localhost:8080/show/',{
+        const { data, pending, error, refresh } = await useFetch('http://localhost:8080/show',{
             method: "get",
             
             headers: {
@@ -35,6 +36,33 @@ const updateData = () => {
     })
 }
 
+const  updatePassword = async  () => {
+    
+    return await callWithNuxt(
+    useNuxtApp(),
+    async ()=> await useFetch('http://localhost:8080/update',{
+        method: "put",
+        body: form,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        onResponse({ request, response, options }) {
+            console.log(response);
+            // Process the response data
+            navigateTo('/home');
+            
+            // window.$cookies.set('token', response._data.data.token);
+            
+        },
+        onResponseError({ request, response, options }) {
+            console.log(response);
+            // Handle the response errors
+        }
+    })
+    );
+    
+}
+
 onMounted(() => {
     updateData()
 });
@@ -54,18 +82,18 @@ onMounted(() => {
           </h2>
           <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
               <div>
-                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your registered email</label>
-                  <input v-model="form.email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+                  <label for="disabled-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your registered email</label>
+                  <input v-model="form.email" type="text" id="disabled-input" aria-label="disabled input" class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
               </div>
               <div>
                   <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
-                  <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                  <input v-model="form.newPassword" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
               </div>
               <div>
                   <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                   <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
               </div>
-              <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
+              <button @click.stop.prevent="updatePassword" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
           </form>
       </div>
   </div>
