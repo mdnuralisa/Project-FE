@@ -90,7 +90,7 @@ onMounted(() => {
                 </div> 
                 <div class="grid gap-8 lg:grid-cols-4 flex flex-row justify-items-center">
                     <div v-for="(category, index) in categories" class="flex flex-col items-center justify-center p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <h2 class="text-center mb-8 text-5xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#" @click.stop.prevent="navigateTo('/categories/'+ category.id + '/items')">{{ category.name }}</a></h2>
+                        <h2 class="hover:text-sky-500 text-center mb-8 text-5xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#" @click.stop.prevent="navigateTo('/categories/'+ category.id + '/items')">{{ category.name }}</a></h2>
                         <div class="mt-2 gap-4 flex justify-between items-center">
                     <div class="flex items-center space-x-3 sm:space-x-4">
                         <button type="button" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
