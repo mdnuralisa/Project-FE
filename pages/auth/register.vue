@@ -10,12 +10,20 @@ const form = ref({
     password: ""
 })
 
+const confirmPassword = ref("");
+const errorMessage = ref("");
+
+const validateForm = () => {
+  if (form.value.password !== confirmPassword.value) {
+    errorMessage.value = "Passwords do not match!";
+    return false;
+  }
+  errorMessage.value = "";
+  return true;
+};
+
 const config = useRuntimeConfig();
 
-// const checkPassword = () => {
-    
-    // }
-    
     const  register = async  () => {
         
         return await callWithNuxt(
@@ -65,7 +73,8 @@ const config = useRuntimeConfig();
                         </div>
                         <div>
                             <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                            <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <input v-model="confirmPassword" @input="validateForm" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <p v-if="errorMessage" class="block text-sm font-semibold text-red-500 dark:text-white">{{ errorMessage }}</p>
                         </div>
                         <!-- If want check box and tnc -->
                         <!-- <div class="flex items-start">
