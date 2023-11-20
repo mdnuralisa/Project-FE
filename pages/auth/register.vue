@@ -10,6 +10,8 @@ const form = ref({
     password: ""
 })
 
+const config = useRuntimeConfig();
+
 // const checkPassword = () => {
     
     // }
@@ -18,7 +20,7 @@ const form = ref({
         
         return await callWithNuxt(
         useNuxtApp(),
-        async ()=> await useFetch('http://localhost:8080/register',{
+        async ()=> await useFetch(`${config.public.apiBase}register`,{
             method: "post",
             body: form,
             onResponse({ request, response, options }) {

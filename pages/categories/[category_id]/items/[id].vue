@@ -14,13 +14,16 @@ let form = ref({
     unit: "",
 })
 
+const config = useRuntimeConfig();
+`${config.public.apiBase}categories/${id}/items/store`
+
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 const updateData = () => {
     
     nextTick(async () => {
         
-        const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/'+id+'/items/show/'+itemId, {
+        const { data, pending, error, refresh } = await useFetch(`${config.public.apiBase}categories/${id}/items/show/${itemId}`, {
             method: "get",
             
             headers: {
@@ -47,7 +50,7 @@ const  update = async  () => {
     
     return await callWithNuxt(
     useNuxtApp(),
-    async ()=> await useFetch('http://localhost:8080/categories/'+id+'/items/update/'+itemId,{
+    async ()=> await useFetch(`${config.public.apiBase}categories/${id}/items/update/${itemId}`,{
         method: "put",
         body: form,
         headers: {

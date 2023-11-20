@@ -12,12 +12,13 @@ const form = ref({
     unit: "",
 })
 
+const config = useRuntimeConfig();
 
 const  add = async  () => {
     
     return await callWithNuxt(
         useNuxtApp(),
-        async ()=> await useFetch('http://localhost:8080/categories/'+id+'/items/store',{
+        async ()=> await useFetch(`${config.public.apiBase}categories/${id}/items/store`,{
             method: "post",
             body: form,
             headers: {

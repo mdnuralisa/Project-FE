@@ -16,11 +16,12 @@ let categoryName = ref({
     id: 0
 })
 
+const config = useRuntimeConfig();
 
 const updateData = () => {
     
     nextTick(async () => {
-        await useFetch('http://localhost:8080/categories/'+id+'/items/listing', {
+        await useFetch(`${config.public.apiBase}categories/${id}/items/listing`, {
             method: "get",
             
             headers: {
@@ -41,7 +42,7 @@ const updateData = () => {
             }
         });
 
-        await useFetch('http://localhost:8080/categories/show/'+id, {
+        await useFetch(`${config.public.apiBase}categories/show/${id}`, {
             method: "get",
             
             headers: {
@@ -71,7 +72,7 @@ const  deleteItem = async  (index: any, itemId: string) => {
     
     return await callWithNuxt(
     useNuxtApp(),
-    async ()=> await useFetch('http://localhost:8080/categories/'+id+'/items/delete/'+itemId,{
+    async ()=> await useFetch(`${config.public.apiBase}categories/${id}/items/delete/${itemId}`,{
         method: "delete",
         headers: {
             Authorization: `Bearer ${token}`,

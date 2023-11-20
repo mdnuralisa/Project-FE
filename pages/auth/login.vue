@@ -10,12 +10,18 @@ const form = ref({
     password: ""
 })
 
+const config = useRuntimeConfig();
+
+console.log(config.public.apiBase)
+
+const apiBase = "http://localhost:8080/";
+const path = "login";
 
 const  login = async  () => {
     
     return await callWithNuxt(
     useNuxtApp(),
-    async ()=> await useFetch('http://localhost:8080/login',{
+    async ()=> await useFetch(`${config.public.apiBase}login`,{
         method: "post",
         body: form,
         onResponse({ request, response, options }) {
