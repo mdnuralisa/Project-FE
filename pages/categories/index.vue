@@ -89,9 +89,9 @@ onMounted(() => {
                     <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Categories</h2>
                     <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Inventories based on your home-space.
                         <!-- Try button -->
-                        <a href="/categories/new">
-                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add New Categories</button>
-                        </a>
+                        
+                            <button href="#" @click.stop.prevent="navigateTo('/categories/new')" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add New Categories</button>
+                        
                         <!-- try button above -->
                     </p>
                 </div> 
