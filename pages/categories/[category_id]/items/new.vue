@@ -2,6 +2,10 @@
 
 import { callWithNuxt } from 'nuxt/app';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const route = useRoute()
 
 let id = route.params.category_id

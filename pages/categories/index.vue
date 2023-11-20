@@ -3,11 +3,16 @@
 import { nextTick } from 'vue'
 import { callWithNuxt } from 'nuxt/app';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const route = useRoute()
 
 let id = route.params.id
 
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
 
 let categories = ref([])
 

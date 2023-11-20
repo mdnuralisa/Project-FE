@@ -2,6 +2,9 @@
 
 import { callWithNuxt } from 'nuxt/app';
 
+definePageMeta({
+  middleware: 'auth'
+})
 
 const form = ref({
     name: ""

@@ -2,6 +2,10 @@
 import { nextTick } from 'vue'
 import { callWithNuxt } from 'nuxt/app';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 let form = ref({
     email: "",
     newPassword: ""

@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import type { PassThrough } from 'stream';
 import { nextTick } from 'vue'
+
+definePageMeta({
+  middleware: 'auth'
+})
 
 let categories = ref({
     name: "",

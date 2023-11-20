@@ -2,6 +2,11 @@
 
 import { nextTick } from 'vue'
 import { callWithNuxt } from 'nuxt/app';
+
+definePageMeta({
+  middleware: 'auth'
+})
+
 const route = useRoute()
 
 let id = route.params.id
