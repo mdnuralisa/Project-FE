@@ -12,9 +12,7 @@ const form = ref({
 
 const config = useRuntimeConfig();
 
-console.log(config.public.apiBase)
-
-const apiBase = "http://localhost:8080/";
+const apiLocal = "http://localhost:8080/";
 const path = "login";
 
 const  login = async  () => {

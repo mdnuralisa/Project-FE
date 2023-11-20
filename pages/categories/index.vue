@@ -11,10 +11,12 @@ const token = typeof window !== 'undefined' ? localStorage.getItem('token') : nu
 
 let categories = ref([])
 
+const config = useRuntimeConfig();
+
 const updateData = () => {
     
   nextTick(async () => {
-const { data, pending, error, refresh } = await useFetch('http://localhost:8080/categories/listing', {
+const { data, pending, error, refresh } = await useFetch(`${config.public.apiBase}categories/listing`, {
         method: "get",
         
         headers: {
@@ -41,7 +43,7 @@ const { data, pending, error, refresh } = await useFetch('http://localhost:8080/
     
     return await callWithNuxt(
         useNuxtApp(),
-        async ()=> await useFetch('http://localhost:8080/categories/delete/'+id,{
+        async ()=> await useFetch(`${config.public.apiBase}categories/delete/${id}`,{
             method: "delete",
             headers: {
               Authorization: `Bearer ${token}`,

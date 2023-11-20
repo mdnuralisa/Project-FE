@@ -7,13 +7,15 @@ let form = ref({
     newPassword: ""
 })
 
+const config = useRuntimeConfig();
+
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 const updateData = () => {
     
     nextTick(async () => {
         
-        const { data, pending, error, refresh } = await useFetch('http://localhost:8080/show',{
+        const { data, pending, error, refresh } = await useFetch(`${config.public.apiBase}show`,{
             method: "get",
             
             headers: {
@@ -40,7 +42,7 @@ const  updatePassword = async  () => {
     
     return await callWithNuxt(
     useNuxtApp(),
-    async ()=> await useFetch('http://localhost:8080/update',{
+    async ()=> await useFetch(`${config.public.apiBase}update`,{
         method: "put",
         body: form,
         headers: {
@@ -85,7 +87,7 @@ onMounted(() => {
           <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
               <div>
                   <label for="disabled-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your registered email</label>
-                  <input v-model="form.email" type="text" id="disabled-input" aria-label="disabled input" class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
+                  <input v-model="form.email" type="text" id="disabled-input" aria-label="disabled input" class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
               </div>
               <div>
                   <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>

@@ -7,6 +7,8 @@ let categories = ref({
     id: 0,
 })
 
+const config = useRuntimeConfig();
+
 let items = ref([])
 
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -15,7 +17,7 @@ const updateData = () => {
     
     nextTick(async () => {
         
-        await useFetch('http://localhost:8080/categories/listing',{
+        await useFetch(`${config.public.apiBase}categories/listing`,{
             method: "get",
             
             headers: {

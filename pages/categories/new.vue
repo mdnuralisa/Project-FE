@@ -7,12 +7,13 @@ const form = ref({
     name: ""
 })
 
+const config = useRuntimeConfig();
 
 const  add = async  () => {
     
     return await callWithNuxt(
         useNuxtApp(),
-        async ()=> await useFetch('http://localhost:8080/categories/store',{
+        async ()=> await useFetch(`${config.public.apiBase}categories/store`,{
             method: "post",
             body: form,
             headers: {
