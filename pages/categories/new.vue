@@ -23,7 +23,7 @@ const  add = async  () => {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             onResponse({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Process the response data
                 navigateTo('/categories');
 
@@ -31,7 +31,7 @@ const  add = async  () => {
                  
             },
             onResponseError({ request, response, options }) {
-                 console.log(response);
+                //  console.log(response);
                 // Handle the response errors
             }
         })

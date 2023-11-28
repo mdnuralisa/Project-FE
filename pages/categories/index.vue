@@ -29,7 +29,7 @@ const { data, pending, error, refresh } = await useFetch(`${config.public.apiBas
             Authorization: `Bearer ${token}`,
         },
         onResponse({ request, response, options }) {
-            console.log(response);
+            // console.log(response);
             // Process the response data
 
             categories.value = response._data.data
@@ -37,7 +37,7 @@ const { data, pending, error, refresh } = await useFetch(`${config.public.apiBas
                 
         },
         onResponseError({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
             // Handle the response errors
         }
     });
@@ -54,19 +54,12 @@ const { data, pending, error, refresh } = await useFetch(`${config.public.apiBas
               Authorization: `Bearer ${token}`,
             },
             onResponse({ request, response, options }) {
-                // categories.splice(index, 1)
-                // alert('woi')
-                console.log(response);
+                // console.log(response);
                 updateData()
-                // Process the response data
-                // navigateTo('/window');
-                // window.location.reload();
-
-                // window.$cookies.set('token', response._data.data.token);
-                 
+                // Process the response data                
             },
             onResponseError({ request, response, options }) {
-                 console.log(response);
+                //  console.log(response);
                 // Handle the response errors
             }
         })

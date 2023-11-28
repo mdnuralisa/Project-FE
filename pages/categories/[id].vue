@@ -31,7 +31,7 @@ const updateData = () => {
                 Authorization: `Bearer ${token}`,
             },
             onResponse({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Process the response data
                 
                 form.value = response._data.data
@@ -39,7 +39,7 @@ const updateData = () => {
                 
             },
             onResponseError({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Handle the response errors
             }
         });
@@ -54,10 +54,10 @@ const  update = async  () => {
         method: "put",
         body: form,
         headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
         },
         onResponse({ request, response, options }) {
-            console.log(response);
+            // console.log(response);
             // Process the response data
             navigateTo('/categories');
             
@@ -65,7 +65,7 @@ const  update = async  () => {
             
         },
         onResponseError({ request, response, options }) {
-            console.log(response);
+            // console.log(response);
             // Handle the response errors
         }
     })

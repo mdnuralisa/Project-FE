@@ -28,15 +28,14 @@ const updateData = () => {
                 Authorization: `Bearer ${token}`,
             },
             onResponse({ request, response, options }) {
-                console.log(response._data.data);
+                // console.log(response._data.data);
                 // Process the response data
                 
                 categories.value = response._data.data
-                // window.$cookies.set('token', response._data.data.token);
                 
             },
             onResponseError({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Handle the response errors
             }
         });

@@ -10,11 +10,10 @@ const form = ref({
     password: ""
 })
 
+// using .env
 const config = useRuntimeConfig();
 
-const apiLocal = "http://localhost:8080/";
-const path = "login";
-
+//calling API
 const  login = async  () => {
     
     return await callWithNuxt(
@@ -23,21 +22,15 @@ const  login = async  () => {
         method: "post",
         body: form,
         onResponse({ request, response, options }) {
-            console.log(response._data.data.token);
+            // console.log(response._data.data.token);
             // Process the response data
             
             localStorage.setItem('token', response._data.data.token);
             
             const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-            console.log(token);
-            if (response.status === 401) {
-                alert("Invalide Credential!");
-                
-            } else {
+            // console.log(token);
+           
                 navigateTo('/home');
-            }
-            
-            // window.$cookies.set('token', response._data.data.token);
             
         },
         onResponseError({ request, response, options }) {
@@ -48,8 +41,6 @@ const  login = async  () => {
     );
     
 }
-
-
 
 </script>
 

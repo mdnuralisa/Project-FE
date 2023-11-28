@@ -13,6 +13,7 @@ const form = ref({
 const confirmPassword = ref("");
 const errorMessage = ref("");
 
+//confirmed password
 const validateForm = () => {
   if (form.value.password !== confirmPassword.value) {
     errorMessage.value = "Passwords do not match!";
@@ -32,9 +33,8 @@ const config = useRuntimeConfig();
             method: "post",
             body: form,
             onResponse({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Process the response data
-                // window.$cookies.set('token', response._data.data.token);
                 navigateTo('/auth/login')
             },
             onResponseError({ request, response, options }) {
@@ -76,15 +76,6 @@ const config = useRuntimeConfig();
                             <input v-model="confirmPassword" @input="validateForm" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             <p v-if="errorMessage" class="block text-sm font-semibold text-red-500 dark:text-white">{{ errorMessage }}</p>
                         </div>
-                        <!-- If want check box and tnc -->
-                        <!-- <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                                <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" />
-                            </div>
-                            <div class="ml-3 text-sm">
-                                <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                            </div>
-                        </div> -->
                         <button type="submit" @click.stop.prevent="register" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <a href="/auth/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>

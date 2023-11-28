@@ -39,7 +39,7 @@ const updateData = () => {
                 Authorization: `Bearer ${token}`,
             },
             onResponse({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Process the response data
                 
                 form.value = response._data.data
@@ -47,7 +47,7 @@ const updateData = () => {
                 
             },
             onResponseError({ request, response, options }) {
-                console.log(response);
+                // console.log(response);
                 // Handle the response errors
             }
         });
@@ -65,7 +65,7 @@ const  updatePassword = async  () => {
             Authorization: `Bearer ${token}`,
         },
         onResponse({ request, response, options }) {
-            console.log(response);
+            // console.log(response);
             // Process the response data
             navigateTo('/home');
             
@@ -73,7 +73,7 @@ const  updatePassword = async  () => {
             
         },
         onResponseError({ request, response, options }) {
-            console.log(response);
+            // console.log(response);
             // Handle the response errors
         }
     })
