@@ -20,7 +20,6 @@ let form = ref({
 })
 
 const config = useRuntimeConfig();
-`${config.public.apiBase}categories/${id}/items/store`
 
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
